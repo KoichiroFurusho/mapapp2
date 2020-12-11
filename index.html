@@ -1,0 +1,45 @@
+<meta charset="UTF-8">
+<title>翻訳APIの動作確認</title>
+<script>
+/* translateはjavascriptの予約関数なのでtraslatexとした */
+function translatex() {
+
+// XMLHttpRequestオブジェクトの作成
+var request = new XMLHttpRequest();
+
+// URLを開く
+var URL = "https://script.google.com/macros/s/";
+var URL = URL+"?srcText="+document.getElementById('src').textContent+"&srcLang=en"+"&dstLang=ja";
+request.open('GET', URL, true);
+request.responseType = 'json';
+
+console.log(URL);
+
+// レスポンスが返ってきた時の処理を記述 
+request.onload = function () {
+
+// レスポンスが返ってきた時の処理
+var json = this.response;
+
+document.getElementById('dst').value = json.result;
+}
+
+// リクエストをURLに送信
+request.send();
+console.log(request);
+}
+
+</script>
+
+
+<h4>翻訳したい英文を入力して下さい：</h4>
+
+<input type="button" value="日本語に変換する" onclick="translatex();">
+<br>
+<textarea id="src" cols="80" rows="10">Hello
+</textarea>
+<br>
+
+<h4>翻訳した日本語内容です：</h4>
+<textarea id="dst" cols="80" rows="10">日本語翻訳した内容
+</textarea>
